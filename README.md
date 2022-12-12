@@ -1,10 +1,13 @@
 # duco-miners
 
-duco-miners is a super simple terminal "dashboard" for you to view a list of your Duino Coin miners. The output automatically updates every 15 seconds and provides you with a break down of each of your miners (in alphabetical order) as well as an overview of all of your miners and your current balance.
+I modified dansinclair25 CLI dashboard to better fit my needs. Added username, staking amount, uptime of the proram, verified status and changed the daily profit calculation for more accuracy.
+There are two versions, one for linux (miners.py) and one for windows (miners_win.py)
+
+duco-miners is still a super simple terminal "dashboard" for you to view a list of your Duino Coin miners. The output automatically updates every 60 seconds and provides you with a break down of each of your miners (in alphabetical order) as well as an overview of all of your miners and your current balance.
 
 ![screenshot](screenshot.png)
 
-PLEASE NOTE: The "Daily profit" will differ to what you see on the Web and Desktop Wallets as they use different refresh rates!! 
+The "Daily profit" method used by dansinclair25 has been changed and takes now the last ten minutes averages. So it is most accurate after ten minutes ! 
 
 ## Usage
 
@@ -15,7 +18,9 @@ PLEASE NOTE: The "Daily profit" will differ to what you see on the Web and Deskt
 1. Enter in your DUCO username. 
 
 ## Extra
+Thanks tpo dansinclair25 for his initial work !
 
 Feel free to fork and edit this as you see fit. 
 
-If you like this and would like to donate some DUCO to me, my wallet username is `dansinclair25`.
+If you like this and would like to donate some DUCO to him, his wallet username is `dansinclair25`, if you want to give some ducos to me, my wallet name is 'discopepereland'
+
