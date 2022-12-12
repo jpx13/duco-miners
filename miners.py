@@ -19,18 +19,31 @@ def format_hashrate(hr):
         unit = 'mH'
     return '{:.2f} {}/s'.format(hr, unit)
 
-def main():
-    subprocess.call("clear")
+def sec2hms(ss):
+	(hh, ss)=divmod(ss, 3600)
+	(mm, ss)=divmod(ss, 60)
+	sec = int (ss)
+	hr = int (hh)
+	mn = int (mm)
+	res = "" + str(hr) +":"+str(mn)+":"+str(sec)
+	return res
 
-    username = None
+
+def main():
+    subprocess.call('clear', shell = True )
+    tab_moy = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+    indice  = 0
+    username = "discopepereland"
     while not username:
         username = input('Enter your DUCO username: ')
 
     print("Fetching miners list…")
 
     prev_balance = 0
-
+    start_time = time.time()
+    current_time = 0
     last_update = None
+    first = 0
 
     while True:
         try:
@@ -59,43 +72,46 @@ def main():
             sys.exit()
         
         if miners_json_data and balances_json_data and api_json_data:
-            subprocess.call("clear")
+            subprocess.call('clear', shell = True )
 
             duco_price_usd = api_json_data.get('Duco price', 0)
 
             #user_miners = [v for v in miners_json_data.values() if v["User"] == username]
             user_miners = miners_json_data.get('result')
-
+            
             if not user_miners:
                 print("No miners found.")
+            else:    
+                miners = []
+                total_hash = 0
+                totalSharerate = 0
+                totalAccepted = 0
 
-            miners = []
-            total_hash = 0
-            totalSharerate = 0
-            totalAccepted = 0
-            for v in user_miners:
-               hashrate = int(v.get("hashrate", 0))
-               total_hash += hashrate
+                for v in user_miners:
+                   hashrate = int(v.get("hashrate", 0))
+                   total_hash += hashrate
 
-               accepted = int(v.get("accepted", 0))
-               rejected = int(v.get("rejected", 0))
-               sharerate = int(v.get("sharetime", 0)) 
-               
-               if sharerate < (accepted + rejected):
-                       sharerate = accepted + rejected
+                   accepted = int(v.get("accepted", 0))
+                   rejected = int(v.get("rejected", 0))
+                   sharerate = int(v.get("sharetime", 0))
+                   
+                   if sharerate < (accepted + rejected):
+                           sharerate = accepted + rejected
 
-               totalSharerate += sharerate
-               totalAccepted += accepted
+                
+                   totalSharerate += sharerate
+                   totalAccepted += accepted
 
-               
-               successRate = f'{accepted}/{sharerate}'
-               
-               algo = v["algorithm"]
-               diff = int(v.get("diff", 0))
-               id = v["identifier"]
-               software = v["software"]
-
-               miners.append([id, software, algo, successRate, format_hashrate(hashrate), diff])
+                   
+                   successRate = f'{accepted}/{sharerate}'
+                   
+                   algo = v["algorithm"]
+                   diff = int(v.get("diff", 0))
+                   id = v["identifier"]
+                   software = v["software"]
+                   pool = v.get("pool")
+                   ping = int(v.get("pg"))
+                   miners.append([id, software, algo, successRate, format_hashrate(hashrate),pool, diff,ping])
             
             miners.sort(key=itemgetter(0))
 
@@ -103,21 +119,41 @@ def main():
             #user_balance = float(user_balance_str.replace(' ᕲ', ''))
             user_balance = balances_json_data.get('result').get('balance')
 
-            balance_difference = user_balance - prev_balance
+            if(first != 0):
+               balance_difference = user_balance - prev_balance
+            else:
+               balance_difference = -1
+            tab_moy[indice] = balance_difference
+            indice = (indice+1)%10
             time_difference = time.time() - last_update if last_update else 0
-            daily_average = balance_difference*float((60/time_difference)*60*24) if time_difference != 0 else 0
-
+            moy = 0.0
+            val = 0
+            for i in range(10):
+                if(tab_moy[i]>=0):
+                    val += 1
+                    moy += tab_moy[i]
+            if (val >0):
+                moy = moy/val
+            else:
+                moy = 0
+            daily_average = moy*60*24   # balance_difference*float((60/time_difference)*60*24) if time_difference != 0 else 0
+            current_time = time.time() - start_time
+            
+            
+            
+            verified = balances_json_data.get('result').get('verified')
+            stake = balances_json_data.get('result').get('stake_amount')
             total_success_pc = int((totalAccepted/totalSharerate)*100) if totalSharerate > 0 else 0
             total_success = f'{total_success_pc}% ({totalAccepted}/{totalSharerate})'
-            print(tabulate([[user_balance, len(miners), format_hashrate(total_hash), f'{total_success}', f'{daily_average} ᕲ']], headers=["Balance", "Total miners", "Total hashrate", "Total success", "Daily profit"]))
+            print(tabulate([[username,user_balance,stake, len(miners), format_hashrate(total_hash), f'{total_success}', f'{daily_average:.2f} D',f'{sec2hms(current_time)}',verified]], headers=["Username","Balance","Staking", "Miners", "Total hashrate", "Total success", "Daily profit","uptime","verified"]))
             
             if miners:
-                print(tabulate(miners, headers=["ID", "Software", "Algo", "Success", "Hashrate", "Diff"], tablefmt='fancy_grid'))
+                print(tabulate(miners, headers=["ID", "Software", "Algo", "Success", "Hashrate","Pool", "Diff","Ping"], tablefmt='fancy_grid'))
             
             prev_balance = user_balance
             last_update = time.time()
-
-            time.sleep(15)
+            first = 1
+            time.sleep(60)
 
 if __name__ == "__main__":
     main()
