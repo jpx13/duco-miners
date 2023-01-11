@@ -33,7 +33,7 @@ def main():
     subprocess.call('cls', shell = True )
     tab_moy = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
     indice  = 0
-    username = "discopepereland"
+    username = "YOUR USER NAME HERE"
     while not username:
         username = input('Enter your DUCO username: ')
 
