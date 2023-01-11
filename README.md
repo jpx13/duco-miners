@@ -3,7 +3,7 @@
 I modified dansinclair25 CLI dashboard to better fit my needs. Added username, staking amount, uptime of the proram, verified status and changed the daily profit calculation for more accuracy.
 There are two versions, one for linux (miners.py) and one for windows (miners_win.py)
 
-Of course change the usernale in the program to the one you want to monitor...
+Of course change the username in the program to the one you want to monitor...
 
 duco-miners is still a super simple terminal "dashboard" for you to view a list of your Duino Coin miners. The output automatically updates every 60 seconds and provides you with a break down of each of your miners (in alphabetical order) as well as an overview of all of your miners and your current balance.
 
@@ -20,7 +20,7 @@ The "Daily profit" method used by dansinclair25 has been changed and takes now t
 1. Enter in your DUCO username. 
 
 ## Extra
-Thanks tpo dansinclair25 for his initial work !
+Thanks to dansinclair25 for his initial work !
 
 Feel free to fork and edit this as you see fit. 
 
