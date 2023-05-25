@@ -25,10 +25,10 @@ The "Daily profit" method used by dansinclair25 has been changed and takes now t
 ## Usage
 
 1. Clone this repo
-1. Open up a terminal and `cd` into the repo directory
-1. Run `pip3 install -r requirements.txt`
-1. Once all of the dependencies have been installed run `python3 miners.py`
-1. Enter in your DUCO username. 
+2. Open up a terminal and `cd` into the repo directory
+3. Run `pip3 install -r requirements.txt`
+4. edit the miners2.py program to fill your username
+5. Once all of the dependencies have been installed run `python3 miners.py`
 
 ## Extra
 Thanks to dansinclair25 for his initial work !
