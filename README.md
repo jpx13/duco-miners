@@ -16,8 +16,7 @@ Of course change the username in the program to the one you want to monitor...
 
 duco-miners is still a super simple terminal "dashboard" for you to view a list of your Duino Coin miners. The output automatically updates every 60 seconds and provides you with a break down of each of your miners (in alphabetical order) as well as an overview of all of your miners and your current balance.
 
-![screenshot](screenshot.jpg)
-
+![screenshot](https://github.com/jpx13/duco-miners/assets/19504251/d2fdd5f4-8a66-4acd-9a06-baaa14d87cbb)
 
 The "Daily profit" method used by dansinclair25 has been changed and takes now the last ten minutes averages. So it is most accurate after ten minutes ! 
 
