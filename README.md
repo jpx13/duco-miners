@@ -1,3 +1,11 @@
+# UPDATE 25/05/23
+I changed the api used in the original program to the latest one (previously it was using 2 apis to fetch wallet and miners data
+I added a timer (on the bottom of the page) to verify the program is running
+I added the Kolka trust score alongside the verified status
+Slightly changed the code to make it universal for linux and windows users
+
+Now use only the miners2.py program
+
 # duco-miners
 
 I modified dansinclair25 CLI dashboard to better fit my needs. Added username, staking amount, uptime of the proram, verified status and changed the daily profit calculation for more accuracy.
