@@ -7,6 +7,8 @@ Slightly changed the code to make it universal for linux and windows users
 
 Now use only the miners2.py program
 
+I left the previous versions available if someone wants to see the initial code
+
 # duco-miners
 
 I modified dansinclair25 CLI dashboard to better fit my needs. Added username, staking amount, uptime of the proram, verified status and changed the daily profit calculation for more accuracy.
