@@ -36,7 +36,7 @@ def main():
     indice  = 0
     username = ""  #put your Duco username here
     while not username:
-	print("No username detected, if you want the program to auto-fetch your username stats, modify line 37 (between the quotes)")
+        print("No username detected, if you want the program to auto-fetch your username stats, modify line 37 (between the quotes)")
         username = input('Enter your DUCO username: ')
 
     print("Fetching miners list…")
